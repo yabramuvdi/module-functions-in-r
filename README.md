@@ -376,4 +376,4 @@ check_N <- function(M, beta, sd) {
 
 ## Results
 
-![inline](./results.pdf)
+![inline](./results.png)
