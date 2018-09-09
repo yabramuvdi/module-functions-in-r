@@ -35,13 +35,17 @@ simulate <- function(N, beta, sd) {
 }
 
 avg_simulations <- function(M, N, beta, sd) {
-    inside <- sapply(1:M, function (x) simulate(N, beta, sd))
+    inside <- sapply(1:M, function (x) {
+        simulate(N, beta, sd)   
+    })
     sum(inside) / M
 }
 
 check_N <- function(M, beta, sd) {
     x <- seq(4, 50, 2)
-    y <- sapply(x, function(N) avg_simulations(M, N, beta, sd))
+    y <- sapply(x, function(N) {
+        avg_simulations(M, N, beta, sd)   
+    })
     qplot(x, y)
 }
 

@@ -1,5 +1,9 @@
-% Functions in R
-% September, 2018
+
+---
+title: Functions in R
+date: September, 2018
+...
+
 
 ## What is R?
 
@@ -206,18 +210,16 @@ data_2 <- generate_data(35)
 
 Let's work on generating data according to the data generating process:
 
-$$
-    y = \beta x + \epsilon
-$$
+```{R}
+y <- beta * x + eps
+```
 
 Where
 
-$$
-    x \sim Normal(0, 1)
-$$
-$$
-    \epsilon \sim Normal(0, \sigma^2)
-$$
+```{R}
+    x <- rnorm(1, mean=0, sd=1)
+    eps <- rnomr(1, mean=0, sd=sd)    
+```
 
 ---
 
@@ -233,23 +235,7 @@ generate_data <- function(N, beta, sd) {
 }
 ```
 
-What are lists in R?
-
----
-
-
-## Generating Data
-
-```{R}
-generate_data <- function(N, beta, sd) {
-    x <- rnorm(N, 0, 1)
-    eps <- rnorm(N, 0, sd)
-    y <- beta*x + eps
-    list(x = x, y = y)
-}
-```
-
-What is a list?
+What are lists?
 
 ---
 
@@ -286,8 +272,7 @@ calc_se <- function(y, x, coef) {
 }
 ```
 
-* Functions can be put on one line!
-* var() actually returns the unbiased variance estimate (n-1), but we will just use it to keep things simple.
+var() actually returns the unbiased variance estimate (n-1), but we will just use it to keep things simple.
 
 ---
 
@@ -315,28 +300,7 @@ eval_model <- function(coef, se, beta, conf = 1.96) {
 }
 ```
 
-* Default function values
-* Logical operators
-* Will this return a scalar or a vector? (depends on coef and beta!)
-
----
-
-## Evaluating the Model
-
-```{R}
-
-eval_model <- function(coef, se, beta, conf = 1.96) {
-    up <- coef + se*conf
-    down <- coef - se*conf
-    beta > down & beta < up
-}
-```
-
-Note:
-
-* Default function values
-* Logical operators
-* Will this return a scalar or a vector?
+Note: default function values, logical operators, returns a scalar or a vector?
 
 ---
 
@@ -348,16 +312,15 @@ simulate <- function(N, beta, sd) {
     m <- run_regression(d$y, d$x)
     eval_model(m$coef, m$se, beta)
 }
-
 avg_simulations <- function(M, N, beta, sd) {
-    inside <- sapply(1:M, function (x) simulate(N, beta, sd))
+    inside <- sapply(1:M, function (x) {
+        simulate(N, beta, sd)   
+    })
     sum(inside) / M
 }
 ```
 
-* apply family
-* Summing boolean vector
-
+Note: apply family, summing boolean vector
 
 ---
 
@@ -370,9 +333,12 @@ library(ggplot2)
 
 check_N <- function(M, beta, sd) {
     x <- seq(4, 50, 2)
-    y <- sapply(x, function(N) avg_simulations(M, N, beta, sd))
+    y <- sapply(x, function(N) {
+        avg_simulations(M, N, beta, sd)   
+    })
     qplot(x, y)
 }
+
 ```
 
 ---
