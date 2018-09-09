@@ -1,3 +1,6 @@
+% Functions in R
+% September, 2018
+
 ## What is R?
 
 R is a program. Like any program, it takes inputs from a user and does something.
