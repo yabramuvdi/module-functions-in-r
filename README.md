@@ -218,7 +218,7 @@ Where
 
 ```{R}
     x <- rnorm(1, mean=0, sd=1)
-    eps <- rnomr(1, mean=0, sd=sd)    
+    eps <- rnorm(1, mean=0, sd=sd)
 ```
 
 ---
@@ -282,7 +282,7 @@ var() actually returns the unbiased variance estimate (n-1), but we will just us
 
 run_regression <- function(y, x) {
     coef <- calc_coef(y, x)
-    se <- calc_se(y, x)
+    se <- calc_se(y, x, coef)
     list(coef=coef, se=se)
 }
 ```
@@ -314,7 +314,7 @@ simulate <- function(N, beta, sd) {
 }
 avg_simulations <- function(M, N, beta, sd) {
     inside <- sapply(1:M, function (x) {
-        simulate(N, beta, sd)   
+        simulate(N, beta, sd)
     })
     sum(inside) / M
 }
@@ -334,7 +334,7 @@ library(ggplot2)
 check_N <- function(M, beta, sd) {
     x <- seq(4, 50, 2)
     y <- sapply(x, function(N) {
-        avg_simulations(M, N, beta, sd)   
+        avg_simulations(M, N, beta, sd)
     })
     qplot(x, y)
 }
@@ -345,4 +345,4 @@ check_N <- function(M, beta, sd) {
 
 ## Results
 
-![inline](./results.png)
+![](./results.png){height=250px}
